@@ -1,0 +1,12 @@
+{
+    "name": "dspacelabs/cache",
+    "description": "Generic Caching Library for PHP",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joshua Estes",
+            "email": "JoshuaEstes@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
