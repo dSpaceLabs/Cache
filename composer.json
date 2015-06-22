@@ -1,12 +1,31 @@
 {
     "name": "dspacelabs/cache",
     "description": "Generic Caching Library for PHP",
+    "keywords": ["cache"],
     "license": "MIT",
+    "homepage": "https://github.com/dSpaceLabs/Cache",
     "authors": [
         {
             "name": "Joshua Estes",
-            "email": "JoshuaEstes@users.noreply.github.com"
+            "homepage": "http://joshuaestes.me"
         }
     ],
-    "require": {}
+    "support": {
+        "issues": "https://github.com/dSpaceLabs/Cache/issues",
+        "source": "https://github.com/dSpaceLabs/Cache",
+        "docs": "https://github.com/dSpaceLabs/Cache",
+        "irc": "irc://irc.freenode.org/dspacelabs"
+    },
+    "require": {},
+    "autoload": {
+        "psr-4": { "Dspacelabs\\Component\\Cache\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Dspacelabs\\Component\\Cache\\Tests\\": "tests/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
 }
