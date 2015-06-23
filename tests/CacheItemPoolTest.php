@@ -46,6 +46,8 @@ class CacheItemPoolTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Data Provider that contains the name of a key and a boolean if the key
+     * is valid
      */
     public function data_isValidKey()
     {
@@ -69,12 +71,43 @@ class CacheItemPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function test_getItem()
     {
+        $mockItem = \Mockery::mock('Dspacelabs\Component\Cache\CacheItemInterface');
+        $mockItem
+            ->shouldReceive('getKey')
+            ->andReturn('key.name');
+        $this->adapter
+            ->shouldReceive('getItem')->with('key.name')->once()
+            ->andReturn($mockItem);
+
+        $item = $this->pool->getItem('key.name');
+        $this->assertInstanceOf('Dspacelabs\Component\Cache\CacheItemInterface', $item);
+        $this->assertSame($mockItem, $item);
     }
 
     /**
      */
     public function test_getItems()
     {
+        $keys = array(
+            'key.one',
+            'key.two',
+        );
+
+        $mockItem = \Mockery::mock('Dspacelabs\Component\Cache\CacheItemInterface');
+        $mockItem
+            ->shouldReceive('getKey')
+            ->andReturnValues($keys);
+
+        $this->adapter
+            ->shouldReceive('getItem')
+            ->andReturn($mockItem);
+
+        $items = $this->pool->getItems($keys);
+        for ($i = 0; $items->valid(); $i++, $items->next()) {
+            $item = $items->current();
+            $this->assertInstanceOf('Dspacelabs\Component\Cache\CacheItemInterface', $item);
+            $this->assertSame($keys[$items->key()], $item->getKey());
+        }
     }
 
     /**

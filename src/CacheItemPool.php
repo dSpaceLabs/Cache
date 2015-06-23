@@ -26,22 +26,31 @@ class CacheItemPool implements CacheItemPoolInterface
      */
     protected $toBeSaved = array();
 
+    /**
+     * @param AdapterInterface $adapter
+     */
     public function __construct(AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getItem($key)
     {
         if (false === $this->isValidKey($key)) {
             throw new InvalidArgumentException('Key is not valid format');
         }
 
-        $item = new CacheItem($key);
+        $item = $this->adapter->getItem($key);
 
         return $item;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getItems(array $keys = array())
     {
         foreach ($keys as $key) {
@@ -49,11 +58,17 @@ class CacheItemPool implements CacheItemPoolInterface
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function clear()
     {
         $this->adapter->clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function deleteItems(array $keys)
     {
         foreach ($keys as $key) {
@@ -61,16 +76,25 @@ class CacheItemPool implements CacheItemPoolInterface
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function save(CacheItemInterface $item)
     {
         $this->adapter->saveItem($item);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function saveDeffered(CacheItemInterface $item)
     {
         $this->toBeSaved[] = $item;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function commit()
     {
         foreach ($this->toBeSaved as $item) {
