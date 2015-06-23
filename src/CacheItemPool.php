@@ -4,6 +4,7 @@
 
 namespace Dspacelabs\Component\Cache;
 
+use Dspacelabs\Component\Cache\InvalidArgumentException;
 use Dspacelabs\Component\Cache\Adapter\AdapterInterface;
 
 /**
@@ -13,7 +14,7 @@ class CacheItemPool implements CacheItemPoolInterface
     /**
      * @var string
      */
-    const VALID_KEY_PATTERN = '/^[a-zA-Z0-9_\.]+/';
+    const VALID_KEY_PATTERN = '/^[a-zA-Z0-9_\.]+$/';
 
     /**
      * @var AdapterInterface
@@ -32,7 +33,7 @@ class CacheItemPool implements CacheItemPoolInterface
 
     public function getItem($key)
     {
-        if (!$this->isValidKey($key)) {
+        if (false === $this->isValidKey($key)) {
             throw new InvalidArgumentException('Key is not valid format');
         }
 

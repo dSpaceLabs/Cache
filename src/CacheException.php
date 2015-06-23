@@ -2,6 +2,6 @@
 
 namespace Dspacelabs\Component\Cache;
 
-class CacheException implements \Exception
+class CacheException extends \Exception
 {
 }

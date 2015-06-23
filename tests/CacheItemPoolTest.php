@@ -35,7 +35,12 @@ class CacheItemPoolTest extends \PHPUnit_Framework_TestCase
     public function test_isValidKey($key, $isValid)
     {
         $pool = \Mockery::mock('Dspacelabs\Component\Cache\CacheItemPool')
-            ->makePartial();
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+
+        $pool
+            ->shouldReceive('isValidKey')
+            ->passthru();
 
         $this->assertSame($isValid, $pool->isValidKey($key));
     }
@@ -47,7 +52,17 @@ class CacheItemPoolTest extends \PHPUnit_Framework_TestCase
         return array(
             array('key', true),
             array('${key}', false),
+            array('!', false),
+            array('k3y!', false),
         );
+    }
+
+    /**
+     * @expectedException Dspacelabs\Component\Cache\InvalidArgumentException
+     */
+    public function test_getItem_throwException()
+    {
+        $this->pool->getItem('k3y!');
     }
 
     /**

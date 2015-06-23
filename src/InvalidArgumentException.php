@@ -2,6 +2,6 @@
 
 namespace Dspacelabs\Component\Cache;
 
-class InvalidArgumentException implements \Exception
+class InvalidArgumentException extends CacheException
 {
 }
