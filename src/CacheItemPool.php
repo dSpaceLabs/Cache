@@ -4,7 +4,7 @@
 
 namespace Dspacelabs\Component\Cache;
 
-use Dspacelabs\Component\Adapter\AdapterInterface;
+use Dspacelabs\Component\Cache\Adapter\AdapterInterface;
 
 /**
  */
@@ -13,7 +13,7 @@ class CacheItemPool implements CacheItemPoolInterface
     /**
      * @var string
      */
-    const VALID_KEY_PATTERN = '[a-zA-Z0-9_\.]';
+    const VALID_KEY_PATTERN = '/^[a-zA-Z0-9_\.]+/';
 
     /**
      * @var AdapterInterface

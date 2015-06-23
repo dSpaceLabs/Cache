@@ -6,7 +6,7 @@ php:
 install:
     - composer install
 script:
-    - phpunit
+    - phpunit --debug --verbose
 notifications:
     email: false
     irc: "chat.freenode.net#dspacelabs"

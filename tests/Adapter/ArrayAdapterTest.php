@@ -2,7 +2,7 @@
 /**
  */
 
-namespace Dspacelabs\Component\Cache\Tests;
+namespace Dspacelabs\Component\Cache\Tests\Adapter;
 
 use Dspacelabs\Component\Cache\Adapter\ArrayAdapter;
 
