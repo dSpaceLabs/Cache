@@ -114,29 +114,34 @@ class CacheItemPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function test_clear()
     {
+        $this->markTestIncomplete();
     }
 
     /**
      */
     public function test_deleteItems()
     {
+        $this->markTestIncomplete();
     }
 
     /**
      */
     public function test_save()
     {
+        $this->markTestIncomplete();
     }
 
     /**
      */
     public function test_saveDeffered()
     {
+        $this->markTestIncomplete();
     }
 
     /**
      */
     public function test_commit()
     {
+        $this->markTestIncomplete();
     }
 }
