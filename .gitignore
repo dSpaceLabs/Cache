@@ -1,3 +1,5 @@
+/docs/api/
+/docs/coverage/
 /logs/
 /vendor/
 composer.lock
