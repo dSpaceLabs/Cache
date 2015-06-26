@@ -12,18 +12,20 @@ use Dspacelabs\Component\Cache\CacheItem;
 class CacheItemTest extends \PHPUnit_Framework_TestCase
 {
     private $key = 'test';
+    private $adapter;
 
     /**
      */
     protected function setUp()
     {
+        $this->adapter = \Mockery::mock('Dspacelabs\Component\Cache\Adapter\AdapterInterface');
     }
 
     /**
      */
     public function test_getGet()
     {
-        $item = new CacheItem($this->key);
+        $item = new CacheItem($this->key, $this->adapter);
         $this->assertSame($this->key, $item->getKey());
     }
 
@@ -31,7 +33,13 @@ class CacheItemTest extends \PHPUnit_Framework_TestCase
      */
     public function test_get()
     {
-        $item = new CacheItem($this->key);
+        $item = new CacheItem($this->key, $this->adapter);
+        $this->assertNull($item->get());
+
+        $item->set('test value');
+        $this->assertSame('test value', $item->get());
+
+        $item->expiresAt(new \DateTime(strtotime('-1 day')));
         $this->assertNull($item->get());
     }
 
@@ -40,7 +48,7 @@ class CacheItemTest extends \PHPUnit_Framework_TestCase
      */
     public function test_set($value)
     {
-        $item = new CacheItem($this->key);
+        $item = new CacheItem($this->key, $this->adapter);
         $item->set($value);
 
         $this->assertSame($value, $item->get());
@@ -61,7 +69,10 @@ class CacheItemTest extends \PHPUnit_Framework_TestCase
      */
     public function teset_isHit()
     {
-        $this->markTestIncomplete();
+        $item = new CacheItem($this->key, $this->adapter);
+        $this->assertTrue($item->isHit());
+        $item->expiresAt(new \DateTime(strtotime('-1 day')));
+        $this->assertFalse($item->isHit());
     }
 
     /**
@@ -75,7 +86,8 @@ class CacheItemTest extends \PHPUnit_Framework_TestCase
      */
     public function test_getExpiration()
     {
-        $this->markTestIncomplete();
+        $item = new CacheItem($this->key, $this->adapter);
+        $this->assertInstanceOf('DateTime', $item->getExpiration());
     }
 
     /**

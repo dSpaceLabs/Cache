@@ -13,12 +13,6 @@ interface AdapterInterface
 {
     /**
      * @param string $key
-     * @return boolean
-     */
-    public function hasItem($key);
-
-    /**
-     * @param string $key
      * @return CacheItemInterface
      */
     public function getItem($key);
@@ -40,4 +34,9 @@ interface AdapterInterface
      * @return void
      */
     public function clear();
+
+    /**
+     * @return boolean
+     */
+    public function exists($key);
 }

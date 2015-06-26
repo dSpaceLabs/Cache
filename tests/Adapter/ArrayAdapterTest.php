@@ -53,15 +53,15 @@ class ArrayAdapterTest extends \PHPUnit_Framework_TestCase
 
     /**
      */
-    public function test_hasItem()
+    public function test_exists()
     {
-        $this->assertFalse($this->adapter->hasItem('maybe'));
+        $this->assertFalse($this->adapter->exists('maybe'));
         $item = \Mockery::mock('Dspacelabs\Component\Cache\CacheItemInterface');
         $item
             ->shouldReceive('getKey')
             ->andReturn('maybe');
         $this->adapter->saveItem($item);
-        $this->assertTrue($this->adapter->hasItem('maybe'));
+        $this->assertTrue($this->adapter->exists('maybe'));
     }
 
     /**
@@ -73,9 +73,9 @@ class ArrayAdapterTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('getKey')
             ->andReturn('maybe');
         $this->adapter->saveItem($item);
-        $this->assertTrue($this->adapter->hasItem('maybe'));
+        $this->assertTrue($this->adapter->exists('maybe'));
         $this->adapter->clear();
-        $this->assertFalse($this->adapter->hasItem('maybe'));
+        $this->assertFalse($this->adapter->exists('maybe'));
     }
 
     /**
@@ -87,8 +87,8 @@ class ArrayAdapterTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('getKey')
             ->andReturn('maybe');
         $this->adapter->saveItem($item);
-        $this->assertTrue($this->adapter->hasItem('maybe'));
+        $this->assertTrue($this->adapter->exists('maybe'));
         $this->adapter->deleteItem('maybe');
-        $this->assertFalse($this->adapter->hasItem('maybe'));
+        $this->assertFalse($this->adapter->exists('maybe'));
     }
 }

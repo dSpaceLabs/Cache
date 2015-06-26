@@ -4,6 +4,8 @@
 
 namespace Dspacelabs\Component\Cache;
 
+use Dspacelabs\Component\Cache\Adapter\AdapterInterface;
+
 /**
  */
 class CacheItem implements CacheItemInterface
@@ -24,11 +26,17 @@ class CacheItem implements CacheItemInterface
     protected $expiresAt;
 
     /**
+     * @var AdapterInterface
+     */
+    protected $adapter;
+
+    /**
      * @param string $key
      */
-    public function __construct($key)
+    public function __construct($key, AdapterInterface $adapter)
     {
-        $this->key = $key;
+        $this->key     = $key;
+        $this->adapter = $adapter;
     }
 
     /**
@@ -44,6 +52,10 @@ class CacheItem implements CacheItemInterface
      */
     public function get()
     {
+        if (false === $this->isHit()) {
+            return null;
+        }
+
         return $this->value;
     }
 
@@ -62,6 +74,11 @@ class CacheItem implements CacheItemInterface
      */
     public function isHit()
     {
+        if ($this->getExpiration()->getTimestamp() < time()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -69,6 +86,7 @@ class CacheItem implements CacheItemInterface
      */
     public function exists()
     {
+        return $this->adapter->exists($this);
     }
 
     /**
@@ -76,6 +94,7 @@ class CacheItem implements CacheItemInterface
      */
     public function expiresAt($expiration)
     {
+        $this->expiresAt = $expiration;
     }
 
     /**
@@ -90,6 +109,10 @@ class CacheItem implements CacheItemInterface
      */
     public function getExpiration()
     {
+        if (null === $this->expiresAt) {
+            return new \DateTime();
+        }
+
         return $this->expiresAt;
     }
 }

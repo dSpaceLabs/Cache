@@ -25,8 +25,8 @@ class ArrayAdapter implements AdapterInterface
      */
     public function getItem($key)
     {
-        if (!$this->hasItem($key)) {
-            $this->items[$key] = new CacheItem($key);
+        if (!$this->exists($key)) {
+            $this->items[$key] = new CacheItem($key, $this);
         }
 
         return $this->items[$key];
@@ -37,7 +37,7 @@ class ArrayAdapter implements AdapterInterface
      */
     public function deleteItem($key)
     {
-        if ($this->hasItem($key)) {
+        if ($this->exists($key)) {
             unset($this->items[$key]);
         }
     }
@@ -59,9 +59,8 @@ class ArrayAdapter implements AdapterInterface
     }
 
     /**
-     * {@inheritDoc}
      */
-    public function hasItem($key)
+    public function exists($key)
     {
         return isset($this->items[$key]);
     }
