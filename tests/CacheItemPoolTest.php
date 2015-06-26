@@ -114,28 +114,44 @@ class CacheItemPoolTest extends \PHPUnit_Framework_TestCase
      */
     public function test_clear()
     {
-        $this->markTestIncomplete();
+        $this->adapter
+            ->shouldReceive('clear');
+        $this->pool->clear();
     }
 
     /**
      */
     public function test_deleteItems()
     {
-        $this->markTestIncomplete();
+        $this->adapter
+            ->shouldReceive('deleteItem')->twice();
+
+        $this->pool->deleteItems(array('test.key', 'key.two'));
     }
 
     /**
      */
     public function test_save()
     {
-        $this->markTestIncomplete();
+        $item = \Mockery::mock('Dspacelabs\Component\Cache\CacheItemInterface');
+        $this->adapter
+            ->shouldReceive('saveItem')->once()
+            ->with($item);
+
+        $this->pool->save($item);
     }
 
     /**
      */
     public function test_saveDeffered()
     {
-        $this->markTestIncomplete();
+        $item = \Mockery::mock('Dspacelabs\Component\Cache\CacheItemInterface');
+        $this->adapter
+            ->shouldReceive('saveItem')->once()
+            ->with($item);
+
+        $this->pool->saveDeffered($item);
+        $this->pool->commit();
     }
 
     /**
