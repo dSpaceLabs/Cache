@@ -35,6 +35,7 @@ class CacheItem implements CacheItemInterface
 
     /**
      * @param string $key
+     * @param AdapterInterface $adapter
      */
     public function __construct($key, AdapterInterface $adapter)
     {
