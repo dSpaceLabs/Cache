@@ -1,5 +1,7 @@
 <?php
 /**
+ * @copyright 2015 dSpace Labs LLC
+ * @license MIT
  */
 
 namespace Dspacelabs\Component\Cache;
@@ -7,6 +9,7 @@ namespace Dspacelabs\Component\Cache;
 use Dspacelabs\Component\Cache\Adapter\AdapterInterface;
 
 /**
+ * Cache Item
  */
 class CacheItem implements CacheItemInterface
 {

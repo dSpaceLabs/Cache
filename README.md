@@ -19,20 +19,51 @@ use Dspacelabs\Component\Cache\CacheItemPool;
 
 $pool = new CacheItemPool(new ArrayAdapter());
 
-# some value that needs to be cached
-$item = $pool->getItem('sql.result.long_running');
-$item->set($resultFromQuery);
+# General Usage
+$item = $pool->getItem('sql.results');
+if (!$item->isHit()) {
+    $value = longRunningQuery();
+    $item->set($value);
+    $pool->save($item);
+}
+$results = $item->get();
 
-# Save result in cache
-$pool->saveItem($item);
+# Delete items from cache
+$sqlResults = $pool->getItem('sql.results');
+$sqlResults->exists(); // returns true
 
-# retrieve item from pool
-$item = $pool->getItem('sql.result.long_running');
-$resultFromQuery = $item->get();
+$sqlResultsTwo = $pool->getItem('sql.results.two');
+$sqlResultsTwo->exists(); // returns true
+
+$pool->deleteItems(array('sql.results'));
+
+$sqlResults->exists(); // returns false
+$sqlResultsTwo->exists(); // returns true
+
+# Clear entire cache
+$sqlResults = $pool->getItem('sql.results');
+$sqlResults->exists(); // returns true
+
+$sqlResultsTwo = $pool->getItem('sql.results.two');
+$sqlResultsTwo->exists(); // returns true
+
+$pool->clear();
+
+$sqlResults->exists(); // returns false
+$sqlResultsTwo->exists(); // returns false
+
+# Cached value expires after 3600 seconds
+$item = $pool->getItem('sql.results');
+$item->expiresAfter(3600);
+$pool->save($item);
 ```
 
 ## Change Log
 
+See [CHANGELOG.md].
+
 ## License
 
 MIT
+
+See [LICENSE].

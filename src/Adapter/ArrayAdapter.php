@@ -12,6 +12,12 @@ use Dspacelabs\Component\Cache\CacheItem;
  *
  * Used to cache items for the duration of a script, can also be used for
  * testing
+ *
+ * ```php
+ * <?php
+ *
+ * $pool = new CacheItemPool(new ArrayAdapter());
+ * ```
  */
 class ArrayAdapter implements AdapterInterface
 {
