@@ -94,7 +94,11 @@ class CacheItem implements CacheItemInterface
      */
     public function expiresAt($expiration)
     {
-        $this->expiresAt = $expiration;
+        if ($expiration instanceof \DateTimeInterface) {
+            $this->expiresAt = $expiration;
+        }
+
+        return $this;
     }
 
     /**
@@ -102,6 +106,16 @@ class CacheItem implements CacheItemInterface
      */
     public function expiresAfter($time)
     {
+        if ($time instanceof \DateInterval) {
+            $this->expiresAt = new \DateTime();
+            $this->expiresAt->add($time);
+        } else {
+            $this->expiresAt = new \DateTime();
+            $this->expiresAt->setTimestamp(time() + (integer) $time);
+        }
+
+
+        return $this;
     }
 
     /**

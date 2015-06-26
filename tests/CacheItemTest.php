@@ -39,7 +39,9 @@ class CacheItemTest extends \PHPUnit_Framework_TestCase
         $item->set('test value');
         $this->assertSame('test value', $item->get());
 
-        $item->expiresAt(new \DateTime(strtotime('-1 day')));
+        $expiresAt = new \DateTime();
+        $expiresAt->setTimestamp(strtotime('-1 day'));
+        $item->expiresAt($expiresAt);
         $this->assertNull($item->get());
     }
 
@@ -94,13 +96,24 @@ class CacheItemTest extends \PHPUnit_Framework_TestCase
      */
     public function test_expiresAt()
     {
-        $this->markTestIncomplete();
+        $item = new CacheItem($this->key, $this->adapter);
+        $expiresAt = new \DateTime();
+        $expiresAt->setTimestamp(strtotime('-1 day'));
+        $item->expiresAt($expiresAt);
+        $this->assertTrue(($expiresAt->getTimestamp() === $item->getExpiration()->getTimestamp()));
+
     }
 
     /**
      */
     public function test_expiresAfter()
     {
-        $this->markTestIncomplete();
+        $item = new CacheItem($this->key, $this->adapter);
+        $item->expiresAfter(600);
+        $this->assertTrue(($item->getExpiration()->getTimestamp() >= (time() + 600)));
+
+        $item = new CacheItem($this->key, $this->adapter);
+        $item->expiresAfter(new \DateInterval('PT600S'));
+        $this->assertTrue(($item->getExpiration()->getTimestamp() >= (time() + 600)));
     }
 }
