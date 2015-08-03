@@ -14,6 +14,10 @@ Generic Caching Library for PHP
 composer require dspacelabs/cache
 ```
 
+Current Stable Release: [![Packagist](https://img.shields.io/packagist/v/dspacelabs/cache.svg)](https://packagist.org/packages/dspacelabs/cache)
+
+Current Pre Release: [![Packagist Pre Release](https://img.shields.io/packagist/vpre/dspacelabs/cache.svg)](https://packagist.org/packages/dspacelabs/cache)
+
 ## Usage
 
 ```php
