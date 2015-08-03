@@ -10,7 +10,3 @@ script:
 notifications:
     email: false
     irc: "chat.freenode.net#dspacelabs"
-cache:
-    directories:
-        - $HOME/.composer/cache
-        - vendor/
