@@ -1,6 +1,9 @@
 Dspacelabs/Component/Cache [![Travis](https://img.shields.io/travis/dSpaceLabs/Cache.svg)](https://travis-ci.org/dSpaceLabs/Cache)
 ==========================
 
+[![Packagist](https://img.shields.io/packagist/v/dspacelabs/cache.svg)](https://packagist.org/packages/dspacelabs/cache)
+[![Packagist Pre Release](https://img.shields.io/packagist/vpre/dspacelabs/cache.svg)](https://packagist.org/packages/dspacelabs/cache)
+[![Packagist](https://img.shields.io/packagist/l/dspacelabs/cache.svg)](https://packagist.org/packages/dspacelabs/cache)
 [![Packagist](https://img.shields.io/packagist/dt/dspacelabs/cache.svg)](https://packagist.org/packages/dspacelabs/cache)
 
 Generic Caching Library for PHP
